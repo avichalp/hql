@@ -1,2 +1,2 @@
 # hql
-A Hiccup like DSL for GraphQL
+A [Hiccup](https://github.com/weavejester/hiccup) like DSL for GraphQL
