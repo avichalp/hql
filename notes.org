@@ -1,0 +1,54 @@
+* Notes
+
+- We can represent a field with a Vector. According to Graphql spec a field is a function.
+- Selection-set is a list (actully, a set) of either field, fragment-spread, inline-fragment
+- There is a recurvice relationship between selection-set and a field
+- selection-set -> field | fragment-spread | inline-fragment
+- field -> field-definition | selection-set
+
+  #+BEGIN_QUOTE
+  Some fields describe complex data or relationships to other data.
+  In order to further explore this data, a field may itself contain a selection set, allowing for deeply nested requests.
+  #+END_QUOTE
+
+- hql/graphql function should get a vector as argument -> [:optype [<selection-set>]]
+- if optype is not provided then shorthand query eles longhand query
+- Whatever comes before Selection-Set is a graphql type. `query` and `mutation` are just special types
+
+
+**** ENUMS
+     - ENUM needs to be quoted
+
+**** Directives
+     #+BEGIN_QUOTE
+     The core GraphQL specification includes exactly two directives, which must be supported by any spec-compliant GraphQL server implementation:
+
+     @include(if: Boolean) Only include this field in the result if the argument is true.
+     @skip(if: Boolean) Skip this field if the argument is true.
+     Directives can be useful to get out of situations where you otherwise would need
+     to do string manipulation to add and remove fields in your query.
+     Server implementations may also add experimental features by defining completely new directives.
+     #+END_QUOTE
+
+**** Aliases
+
+     - Why you need aliases?
+     #+BEGIN_QUOTE
+     since the result object fields match the name of the field in the query but don't include arguments,
+     you can't directly query for the same field with different arguments.
+     That's why you need aliases - they let you rename the result of a field to anything you want.
+     #+END_QUOTE
+
+**** Inline Fragments
+
+     - Why you need inline fragments?
+
+     #+BEGIN_QUOTE
+     If you are querying a field that returns an interface or a union type,
+     you will need to use inline fragments to access data on the underlying concrete type.
+     Example a Search API can return a list of products or sellers or brands etc
+     #+END_QUOTE
+
+**** Todos
+     - Directives in Operation Defination
+     - Directives in Fragment Deifnation
