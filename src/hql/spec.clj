@@ -65,6 +65,11 @@
 (spec/def ::document
   (spec/coll-of ::executable :kind vector? :gen-max 5))
 
+(spec/def ::hql
+  (spec/or :document ::document
+           :operation ::operation
+           :field ::field))
+
 (comment
 
   (spec/conform ::selection-set
