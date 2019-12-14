@@ -11,7 +11,7 @@ Get the latest version from Clojars
 [![Latest version](https://clojars.org/hql/latest-version.svg)](https://clojars.org/hql)
 
 
-To convert EDN based query to a valid GraphQL query string **just use the function `graphql` from `hql.core`**
+Converting an EDN based query to a GraphQL query
 
 ```Clojure
 (require '[hql.core :as hql])
