@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/avichalp/hql/tree/master.svg?style=svg)](https://circleci.com/gh/avichalp/hql/tree/master)
 
-HQL lets you express graphql queries with Clojure data structures.
+Write graphql queries with Clojure data structures.
 
 
 ## Usage 
