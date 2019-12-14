@@ -1,18 +1,18 @@
 (ns hql.core
   "
   ### Express GraphQL queries using clojure data structures.
-  
+
   #### Example:
-  
+
   #### HQL
-  
-  ```Clojure  
-  [[:user
+
+  ```Clojure
+  [:user
     [[:id]
      [:name]
-     [:profilePic {:size 300}]]]]
+     [:profilePic {:size 300}]]]
   ```
-  
+
   #### GRAPHQL
   ```Javascript
    {
@@ -23,9 +23,10 @@
       }
     }
   ```
-  "  
+  "
   (:require [clojure.string :as s]
             [clojure.spec.alpha :as spec]
+            [expound.alpha :as expound]
             [hql.spec]))
 
 (declare field)

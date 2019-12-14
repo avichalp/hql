@@ -9,7 +9,8 @@
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[org.clojure/clojure "1.10.0"]]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [expound "0.8.2"]]
 
   :plugins [[lein-cloverage "1.0.13"]
             [lein-shell "0.5.0"]
