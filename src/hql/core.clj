@@ -144,23 +144,27 @@
   [[_ f]]
   (fragment f))
 
+(defmulti hql first)
+
+(defmethod hql :document
+  [[_ d]]
+  (->> d
+       (mapv executable)
+       (reduce str)))
+
+(defmethod hql :operation
+  [[_ op]]
+  (operation op))
+
+(defmethod hql :field
+  [[_ f]]
+  (field f))
+
 (defn graphql
   [q]
-  (cond
-    ;; document
-    (spec/valid? :hql.spec/document q)
-    (->> (spec/conform :hql.spec/document q)
-         (mapv executable)
-         (reduce str))
-
-    ;; operation
-    (spec/valid? :hql.spec/operation q)
-    (operation (spec/conform :hql.spec/operation q))
-
-    ;; shorthand query
-    (spec/valid? :hql.spec/field q)
-    (field (spec/conform :hql.spec/field q))
-
-    ;; invalid query/operation
-    :else
-    (ex-info "Invalid Query" q)))
+  (if (spec/valid? :hql.spec/hql q)
+    (->> q (spec/conform :hql.spec/hql) hql)
+    (expound/expound :hql.spec/hql
+                     q
+                     {:print-specs? false
+                      :theme        :figwheel-theme})))
