@@ -16,7 +16,13 @@ Converting an EDN based query to a GraphQL query
 ```Clojure
 (require '[hql.core :as hql])
 
-(hql/graphql ,,, )
+(def q  [:user
+          [[:id]
+           [:name]
+           [:profilePic {:size 300}]]])
+            
+(hql/graphql q)
+;; ==> "user{id name profilePic(size: 300)}"
 ```
 
 Lets look at some example queries.
