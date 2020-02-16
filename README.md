@@ -34,8 +34,8 @@ Lets look at some example queries.
 
 ```Clojure
 [:query
-  [[:viewer
-     [[:login]]]]]
+  [:viewer
+    [:login]]]
 ```
 
 This will translate to:
@@ -47,19 +47,19 @@ query {
 }
 ```
 
-_Represent a `Feild` as a vector and a `SelectionSets` as a vector of fields._
+_Represent a `Feild` as a vector._
 
 2. Get your last N repos using a query with variables.
 
 ```Clojure
 [:query
- {:$number_of_repos Int!}
- [[:viewer
-   [[:name]
-    [:repositories 
-    {:last $number_of_repos}
-    [[:nodes
-      [[:name]]]]]]]]]
+  {:$number_of_repos 'Int!}
+  [:viewer
+    [:name]
+    [:repositories
+      {:last '$number_of_repos}
+       [:nodes
+         [:name]]]]]
 ```
 
 ```Javascript
@@ -75,23 +75,27 @@ query($number_of_repos: Int!) {
 }
 ```
 
-_Variables ia a query are represented as a `map`. And arguments to the field `repositories`, in the above query, is represend as a `map` too._ 
+_Variables in a query are represented as a `map`. And arguments to the field `repositories`, in the above query, is represend as a `map` too._ 
 
 3. Get closed issues from a repo:
 
 ```Clojure
 [:query
- "issuesQuery"
- {:$owner String!, :$repo String!}
- [[:repository
-   "repo"
-   {:owner $owner, :name $repo}
-   [[:issues
-     "issues"
-     {:last 20, :states CLOSED}
-     [[:edges
-       [[:node
-         [[:labels {:first 5} [[:edges [[:node [[:name]]]]]]]]]]]]]]]]]
+  "issuesQuery"
+  {:$owner 'String! :$repo 'String!}
+  [:repository
+    "repo"
+    {:owner '$owner, :name '$repo}
+    [:issues
+      "issues"
+      {:last 20, :states 'CLOSED}
+      [:edges
+        [:node
+          [:labels
+            {:first 5}
+            [:edges
+              [:node
+                [:name]]]]]]]]]
 ```
 
 ```Javascript
@@ -121,10 +125,15 @@ To specify an alias add it as the second element in the field vector._
 
 ```Clojure
 [:mutation
- "AddReactionToIssue"
- [[:addReaction
-   {:input {:subjectId "MDU6SXNzdWU1MzA1NjgzODQ=", :content HOORAY}}
-   [[:reaction [[:content]]] [:subject [[:id]]]]]]]
+  "AddReactionToIssue"
+  [:addReaction
+    {:input
+      {:subjectId "MDU6SXNzdWUyMzEzOTE1NTE="
+       :content   'HOORAY}}
+    [:reaction
+      [:content]]
+    [:subject
+      [:id]]]]]
 ```
 
 ```Javascript
@@ -145,7 +154,7 @@ mutation AddReactionToIssue {
 
 ## License
 
-Copyright © 2019 Avichal
+Copyright © 2020 Avichal
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.

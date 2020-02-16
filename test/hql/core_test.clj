@@ -14,69 +14,70 @@
   ["Test a simple query"
    "query {viewer{login}}"
    [:query
-    [[:viewer
-      [[:login]]]]]]
+    [:viewer
+     [:login]]]]
 
   ["Test query with variables"
    "query  ($number_of_repos: Int!){viewer{name repositories(last: $number_of_repos){nodes{name}}}}"
    [:query
     {:$number_of_repos 'Int!}
-    [[:viewer
-      [[:name]
-       [:repositories
-        {:last '$number_of_repos}
-        [[:nodes
-          [[:name]]]]]]]]]]
+    [:viewer
+     [:name]
+     [:repositories
+      {:last '$number_of_repos}
+      [:nodes
+       [:name]]]]]]
 
   ["Query last 20 closed issues in a repo from Github"
    "query issuesQuery ($owner: String!, $repo: String!){repo: repository(owner: $owner, name: $repo){issues: issues(last: 20, states: CLOSED){edges{node{labels(first: 5){edges{node{name}}}}}}}}"
    [:query
     "issuesQuery"
     {:$owner 'String! :$repo 'String!}
-    [[:repository
-      "repo"
-      {:owner '$owner, :name '$repo}
-      [[:issues
-        "issues"
-        {:last 20, :states 'CLOSED}
-        [[:edges
-          [[:node
-            [[:labels
-              {:first 5}
-              [[:edges
-                [[:node
-                  [[:name]]]]]]]]]]]]]]]]]]
+    [:repository
+     "repo"
+     {:owner '$owner, :name '$repo}
+     [:issues
+      "issues"
+      {:last 20, :states 'CLOSED}
+      [:edges
+       [:node
+        [:labels
+         {:first 5}
+         [:edges
+          [:node
+           [:name]]]]]]]]]]
 
   ["Test Mutation, add a reaction to a Github comment"
    "mutation AddReactionToIssue{addReaction(input: {subjectId: \"MDU6SXNzdWUyMzEzOTE1NTE=\", content: HOORAY}){reaction{content} subject{id}}}"
    [:mutation
     "AddReactionToIssue"
-    [[:addReaction
-      {:input {:subjectId "MDU6SXNzdWUyMzEzOTE1NTE="
-               :content   'HOORAY}}
-      [[:reaction
-        [[:content]]]
-       [:subject
-        [[:id]]]]]]]]
+    [:addReaction
+     {:input
+      {:subjectId "MDU6SXNzdWUyMzEzOTE1NTE="
+       :content   'HOORAY}}
+     [:reaction
+      [:content]]
+     [:subject
+      [:id]]]]]
 
   ["Test a GraphQL document with query and fragments and inline fragments"
    "query MyQuery ($myId: Int!){...FriendFields ... on User{friends{count}} user(id: $myId){profilePic}}fragment friendFields on User{profilePic(size: 50)}"
    [[:query
      "MyQuery"
      {:$myId 'Int!}
-     [[:fragment "FriendFields"]
-      [:fragment
-       {:on 'User}
-       [[:friends
-         [[:count]]]]]
-      [:user
-       {:id '$myId}
-       [[:profilePic]]]]]
+     [:fragment "FriendFields"]
+     [:fragment
+      {:on 'User}
+      [:friends
+       [:count]]]
+     [:user
+      {:id '$myId}
+      [:profilePic]]]
     [:fragment
      "friendFields"
      {:on 'User}
-     [[:profilePic
-       {:size 50}]]]]]
+     [:profilePic
+      {:size 50}]]]]
   )
 
 (comment
