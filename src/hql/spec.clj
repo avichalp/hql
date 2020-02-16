@@ -9,7 +9,7 @@
    :name (spec/and keyword? #(spec/valid? ::name (name %)))
    :alias (spec/? ::name)
    :args (spec/? map?)
-   :selection-set (spec/? ::selection-set)))
+   :selection-set ::selection-set))
 
 (spec/def ::fragment-spread
   (spec/cat
@@ -40,8 +40,7 @@
            :inline-fragment ::inline-fragment
            :field ::field))
 
-(spec/def ::selection-set
-  (spec/coll-of ::selection :kind vector? :gen-max 5))
+(spec/def ::selection-set (spec/* ::selection))
 
 (spec/def ::operation
   (spec/cat
@@ -72,20 +71,8 @@
 
 (comment
 
-  (spec/conform ::selection-set
-                [[:handle]
-                 [:fragment "FriendFields"]
-                 [:fragment
-                  {:on 'User}
-                  [[:friends
-                    [[:count]]]]]
-                 [:fragment
-                  {:on 'Page}
-                  [[:likers
-                    [[:count]]]]]])
-
   (spec/conform ::inline-fragment
                 [:fragment
                  {:on 'User}
-                 [[:friends
-                   [[:count]]]]]))
+                 [:friends
+                  [:count]]]))
