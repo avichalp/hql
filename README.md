@@ -17,9 +17,9 @@ Converting an EDN based query to a GraphQL query
 (require '[hql.core :as hql])
 
 (def q  [:user
-          [[:id]
-           [:name]
-           [:profilePic {:size 300}]]])
+          [:id]
+          [:name]
+          [:profilePic {:size 300}]])
             
 (hql/graphql q)
 ;; ==> "user{id name profilePic(size: 300)}"
