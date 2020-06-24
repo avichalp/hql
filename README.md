@@ -39,7 +39,7 @@ Lets look at some example queries.
 ```
 
 This will translate to:
-```javascript
+```Javascript
 query {
   viewer {
     login
